@@ -8,14 +8,20 @@ import BackCard from '../../assets/backcard.svg'
 // click on 1 of them will flip the card is Ace you won else you lose
 const Deck: React.FC = () => {
 
-    const cards = ['A', 'K']
+    const ranks = ['A', 'K']
     const suits = ['H', 'C', 'D', 'S']
 
-    
     const shuffleCards = () => {
 
     }
 
+    //generate all Aces and Kings by suits
+    const getDeck = () =>
+        ranks
+            .map(r => suits.map(s => r + s))
+            .reduce((prev, curr) => prev.concat(curr))
+    ;
+    
     return (
       <img src={BackCard} onClick={shuffleCards} />
     )
