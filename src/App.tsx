@@ -6,7 +6,7 @@ import Deck from './components/Deck/Deck'
 const App = () => {
   return <>
   <Deck />
-  <Card value={'AD'} />
+  {/* <Card value={'AD'} /> */}
   </>
 }
 
