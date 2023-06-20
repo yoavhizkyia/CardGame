@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import useStyles from './DeckStyles'
 import BC from '../../assets/cardsSvgs/BC.svg'
-import AD from '../../assets/cardsSvgs/AD.svg'
 import Card from '../Cards/Card'
+import { shuffle } from 'lodash'
 
 // in Deck we want to create the starter and display the first 4 cards
 // the 4 cards will be build from 3 Kings and only 1 Ace 
@@ -15,33 +15,20 @@ const Deck: React.FC = () => {
     const ranks = ['A', 'K']
     const suits = ['H', 'C', 'D', 'S']
 
-    const [cards, setCards] = useState<string[]>(['AD', 'KC', 'AH'])
-
-    let currentIndex = cards.length;
-    let randomIndex;
-
-    const shuffle = (array: string[]) => {
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex)
-            currentIndex--
-
-            [array[currentIndex], array[randomIndex]] = [
-                array[randomIndex], array[currentIndex]]
-        }
-
-        console.log(array);
-        
-        return array
-    }
-
+    const [cards, setCards] = useState<string[]>(['KS', 'AH', 'KC'])
     const [isShowCards, setIsShowCards] = useState<boolean>(false)
+
+    const handleOnClick =() => {
+        setIsShowCards(true);  
+        setCards(prev=> shuffle(prev));
+    }
     
     return (
         <>
-            <img src={BC} className={classes.backCard} onClick={() => {setIsShowCards(true); setCards(shuffle(cards))}}/> 
+            <img src={BC} className={classes.backCard} onClick={handleOnClick}/> 
             {
                 isShowCards && 
-                cards.map(deckCard => <Card key={deckCard} value={deckCard}/>) 
+                cards.map(deckCard => (<Card key={deckCard} value={deckCard}/>)) 
             }
         </>
     )
